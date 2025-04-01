@@ -5,6 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.example.zandar.multiSign.commands.SignCommand;
 
 import java.lang.reflect.Field;
+import java.util.List;
 import java.util.Objects;
 
 public final class MultiSign extends JavaPlugin {
@@ -12,8 +13,8 @@ public final class MultiSign extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        registerCommands();
         maxSignatures = getConfig().getInt("max-signatures", 2);
+        this.getServer().getCommandMap().register("sign", new SignCommand(this));
         saveDefaultConfig();
 
         // Plugin startup logic
@@ -26,18 +27,6 @@ public final class MultiSign extends JavaPlugin {
     }
         // Plugin shutdown logic
 
-    private void registerCommands() {
-        try {
-            Field commandMapField = getServer().getClass().getDeclaredField("commandMap");
-            commandMapField.setAccessible(true);
-            CommandMap commandMap = (CommandMap) commandMapField.get(getServer());
 
-            SignCommand signCommand = new SignCommand(this);
-            commandMap.register("signbook", signCommand);
-        } catch (Exception e) {
-            getLogger().severe("Не вдалося зареєструвати команду!");
-            e.printStackTrace();
-        }
 
-        }
 }

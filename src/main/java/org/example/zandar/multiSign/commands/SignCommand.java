@@ -11,7 +11,9 @@ import org.bukkit.inventory.meta.BookMeta;
 import org.example.zandar.multiSign.MultiSign;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 public class SignCommand extends BukkitCommand {
 
@@ -33,10 +35,13 @@ public class SignCommand extends BukkitCommand {
             if (item.getType() == Material.WRITTEN_BOOK) {
                 BookMeta meta = (BookMeta) item.getItemMeta();
                 String oldAuthor = meta.getAuthor() != null ? meta.getAuthor() : "";
-                if (oldAuthor.contains(player.getName())) {
+
+                List<String> authors = Arrays.asList(oldAuthor.split(" & "));
+                if (authors.contains(player.getName())) {
                     player.sendMessage("Ви вже підписали цю книгу!");
                     return true;
                 }
+
                 int currentSignatures = oldAuthor.isEmpty() ? 0 : oldAuthor.split(" & ").length;
 
 
