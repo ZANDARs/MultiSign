@@ -1,1 +1,6 @@
 max-signatures: 2
+messages:
+  successfully_signed: "§cУспішно підписано"
+  already_signed: "§cВи вже підписали цю книгу!"
+  max_signatures_reached: "§cДосягнуто максимальну кількість підписантів (%max_signatures%)"
+  hold_book: "§cТримайте книгу у руці"

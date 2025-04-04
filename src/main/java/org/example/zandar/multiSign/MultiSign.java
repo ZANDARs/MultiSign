@@ -14,8 +14,8 @@ public final class MultiSign extends JavaPlugin {
     @Override
     public void onEnable() {
         maxSignatures = getConfig().getInt("max-signatures", 2);
-        this.getServer().getCommandMap().register("sign", new SignCommand(this));
         saveDefaultConfig();
+        this.getServer().getCommandMap().register("sign", new SignCommand(this));
 
         // Plugin startup logic
 

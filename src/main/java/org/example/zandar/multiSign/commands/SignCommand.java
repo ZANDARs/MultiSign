@@ -38,7 +38,7 @@ public class SignCommand extends BukkitCommand {
 
                 List<String> authors = Arrays.asList(oldAuthor.split(" & "));
                 if (authors.contains(player.getName())) {
-                    player.sendMessage("Ви вже підписали цю книгу!");
+                    player.sendMessage(plugin.getConfig().getString("messages.already_signed"));
                     return true;
                 }
 
@@ -46,17 +46,18 @@ public class SignCommand extends BukkitCommand {
 
 
                 if (currentSignatures >= plugin.maxSignatures) {
-                    player.sendMessage("Досягнуто максимальну кількість підписантів (" + plugin.maxSignatures + ")");
+                    player.sendMessage(plugin.getConfig().getString("messages.max_signatures_reached").replace("%max_signatures%", String.valueOf(plugin.maxSignatures)));
                     return true;
                 }
 
                 meta.setAuthor(oldAuthor + " & " + player.getName());
                 item.setItemMeta(meta);
+                player.sendMessage(plugin.getConfig().getString("messages.successfully_signed"));
 
 
 
             } else {
-                player.sendMessage("Тримайте книгу у руці");
+                player.sendMessage(plugin.getConfig().getString("messages.hold_book"));
             }
             return true;
 
